@@ -6,7 +6,7 @@ services:
     ports:
       - '6500:5432'
     volumes:
-      - progresDB:/var/lib/postgresql/data
+      - agrimalidb:/var/lib/postgresql/data
     env_file:
       - ./.env
 
@@ -16,7 +16,7 @@ services:
     ports:
       - '6379:6379'
     volumes:
-      - redisDB:/data
+      - redisdb:/data
 volumes:
-  progresDB:
-  redisDB:
+  agrimalidb:
+  redisdb:
