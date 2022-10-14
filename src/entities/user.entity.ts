@@ -1,11 +1,6 @@
-import { Entity, Column, Index, BeforeInsert } from 'typeorm';
+import {Entity, Column, Index, BeforeInsert, JoinTable, ManyToMany, OneToMany, JoinColumn} from 'typeorm';
 import bcrypt from 'bcryptjs';
 import Model from './model.entity';
-
-export enum RoleEnumType {
-  USER = 'user',
-  ADMIN = 'admin',
-}
 
 @Entity('users')
 export class User extends Model {
@@ -20,13 +15,6 @@ export class User extends Model {
 
   @Column()
   password: string;
-
-  @Column({
-    type: 'enum',
-    enum: RoleEnumType,
-    default: RoleEnumType.USER,
-  })
-  role: RoleEnumType.USER;
 
   @Column({
     default: 'default.png',
