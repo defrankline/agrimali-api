@@ -28,13 +28,16 @@ export const signTokens = async (user: User) => {
         EX: config.get<number>('redisCacheExpiresIn') * 60,
     });
 
-    const access_token = signJwt({sub: user.id}, 'accessTokenPrivateKey', {
+    const accessToken = signJwt({sub: user.id}, 'accessTokenPrivateKey', {
         expiresIn: `${config.get<number>('accessTokenExpiresIn')}m`,
     });
 
-    const refresh_token = signJwt({sub: user.id}, 'refreshTokenPrivateKey', {
+    const refreshToken = signJwt({sub: user.id}, 'refreshTokenPrivateKey', {
         expiresIn: `${config.get<number>('refreshTokenExpiresIn')}m`,
     });
 
-    return {access_token, refresh_token};
+    const accessTokenExpiresIn = `${config.get<number>('accessTokenExpiresIn')}m`;
+    const refreshTokenExpiresIn = `${config.get<number>('refreshTokenExpiresIn')}m`;
+
+    return {accessToken, accessTokenExpiresIn, refreshToken, refreshTokenExpiresIn};
 };
