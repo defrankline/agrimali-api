@@ -1,15 +1,16 @@
 import {NextFunction, Request, Response} from 'express';
-import {createCrop, deleteCrop, findAllCrops, updateCrop} from "../services/crop.service";
-import {CreateCropInput, UpdateCropInput} from "../schemas/crop.schema";
+import {createFertilizer, deleteFertilizer, findAllFertilizers, updateFertilizer} from "../services/fertilizer.service";
+import {CreateFertilizerInput, UpdateFertilizerInput} from "../schemas/fertilizer.schema";
+import {deleteCrop} from "../services/crop.service";
 
-export const findAllCropsHandler = async (req: Request, res: Response, next: NextFunction) => {
+export const findAllFertilizersHandler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const crops = await findAllCrops({});
+        const fertilizers = await findAllFertilizers({});
 
         res.status(200).status(200).json({
             status: 'success',
             data: {
-                crops,
+                fertilizers,
             },
         });
     } catch (err: any) {
@@ -17,65 +18,65 @@ export const findAllCropsHandler = async (req: Request, res: Response, next: Nex
     }
 };
 
-export const createCropHandler = async (
-    req: Request<{}, {}, CreateCropInput>,
+export const createFertilizerHandler = async (
+    req: Request<{}, {}, CreateFertilizerInput>,
     res: Response,
     next: NextFunction
 ) => {
     try {
         const {name, code} = req.body;
-        const crop = await createCrop({
+        const fertilizer = await createFertilizer({
             name,
             code
         });
         res.status(201).json({
             status: 'success',
             data: {
-                crop,
+                fertilizer,
             },
         });
     } catch (err: any) {
         if (err.code === '23505') {
             return res.status(409).json({
                 status: 'fail',
-                message: 'Crop with that code already exist',
+                message: 'Fertilizer with that code already exist',
             });
         }
         next(err);
     }
 };
 
-export const updateCropHandler = async (req: Request<UpdateCropInput>, res: Response, next: NextFunction) => {
+export const updateFertilizerHandler = async (req: Request<UpdateFertilizerInput>, res: Response, next: NextFunction) => {
     try {
         const {name, code} = req.body;
-        const crop = await updateCrop(req.params.id, {name, code});
+        const fertilizer = await updateFertilizer(req.params.id,{name, code});
         res.status(201).json({
             status: 'success',
             data: {
-                crop,
+                fertilizer,
             },
         });
     } catch (err: any) {
         if (err.code === '23505') {
             return res.status(409).json({
                 status: 'fail',
-                message: 'Crop with that code already exist',
+                message: 'Fertilizer with that code already exist',
             });
         }
         next(err);
     }
 };
 
-export const deleteCropHandler = async (req: Request<any>, res: Response, next: NextFunction) => {
+export const deleteFertilizerHandler = async (req: Request<any>, res: Response, next: NextFunction) => {
     try {
-         await deleteCrop(req.params.id);
+        await deleteFertilizer(req.params.id);
         res.status(202).json({
             status: 'success'
         });
     } catch (err: any) {
         return res.status(500).json({
             status: 'fail',
-            message: 'Crop cannot be deleted',
+            message: 'Fertilizer cannot be deleted',
         });
     }
 };

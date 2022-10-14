@@ -23,3 +23,7 @@ export const updateCrop = async (id: string, input: DeepPartial<Crop>) => {
 export const findOneCrop = async (query: Object) => {
     return await cropRepository.findOneBy(query);
 };
+
+export const deleteCrop = async (id: string) => {
+    return await cropRepository.delete({id: id});
+};
