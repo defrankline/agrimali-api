@@ -8,13 +8,11 @@ export const requireUser = (
 ) => {
     try {
         const user = res.locals.user;
-
         if (!user) {
             return next(
                 new AppError(400, `Session has expired or user doesn't exist`)
             );
         }
-
         next();
     } catch (err: any) {
         next(err);

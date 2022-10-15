@@ -14,6 +14,7 @@ import validateEnv from './utils/validateEnv';
 import redisClient from './utils/connectRedis';
 import fertilizerRouter from "./routes/fertilizer.routes";
 
+
 AppDataSource.initialize()
     .then(async () => {
         validateEnv();
@@ -24,7 +25,7 @@ AppDataSource.initialize()
         app.use(cookieParser());
         app.use(
             cors({
-                origin: config.get<string>('origin'),
+                origin: '*',
                 credentials: true,
             })
         );

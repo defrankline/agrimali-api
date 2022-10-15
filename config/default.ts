@@ -1,5 +1,5 @@
 export default {
-  origin: 'http://localhost:3000',
+  origin: 'http://192.168.168.147:19000',
   accessTokenExpiresIn: 720,
   refreshTokenExpiresIn: 900,
   redisCacheExpiresIn: 900,

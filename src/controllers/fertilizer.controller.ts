@@ -1,7 +1,6 @@
 import {NextFunction, Request, Response} from 'express';
 import {createFertilizer, deleteFertilizer, findAllFertilizers, updateFertilizer} from "../services/fertilizer.service";
 import {CreateFertilizerInput, UpdateFertilizerInput} from "../schemas/fertilizer.schema";
-import {deleteCrop} from "../services/crop.service";
 
 export const findAllFertilizersHandler = async (req: Request, res: Response, next: NextFunction) => {
     try {

@@ -23,6 +23,10 @@ export const findUser = async (query: Object) => {
     return await userRepository.findOneBy(query);
 };
 
+export const findAllUsers = async (query: Object) => {
+    return await userRepository.find(query);
+};
+
 export const signTokens = async (user: User) => {
     redisClient.set(user.id, JSON.stringify(user), {
         EX: config.get<number>('redisCacheExpiresIn') * 60,
